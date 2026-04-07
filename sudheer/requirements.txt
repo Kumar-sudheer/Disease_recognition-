@@ -1,0 +1,21 @@
+# Unified Crop Disease Detection
+# Run: pip install -r requirements.txt
+
+# Deep learning
+torch>=2.0.0
+torchvision>=0.15.0
+timm>=0.9.0
+
+# YOLO (sugarcane)
+ultralytics>=8.0.0
+
+# Image processing
+opencv-python>=4.8.0
+Pillow>=10.0.0
+
+# Web framework
+Flask>=3.0.0
+Werkzeug>=3.0.0
+
+# Utilities
+numpy>=1.24.0

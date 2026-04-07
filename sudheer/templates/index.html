@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crop Disease Detection</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <header class="header">
+        <div class="container" >
+            <div class="header-content">
+                <div class="logo">
+                    <span class="logo-icon">🌾</span>
+                    <h1>Crop Disease Detection</h1>
+                </div>
+                <p class="tagline">AI-Powered Early Detection · Sugarcane · Rice · Wheat</p>
+            </div>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <div class="container">
+
+            <!-- Crop Tabs -->
+            <div class="tabs">
+                <button class="tab-btn active" data-crop="sugarcane">🎋 Sugarcane</button>
+                <button class="tab-btn" data-crop="rice">🌾 Rice</button>
+                <button class="tab-btn" data-crop="wheat">🌿 Wheat</button>
+            </div>
+
+            <!-- ── SUGARCANE PANEL ────────────────────────────────────────── -->
+            <section class="panel active" id="panel-sugarcane">
+                <div class="upload-card">
+                    <h2>Sugarcane Disease &amp; Insect Detection</h2>
+                    <p class="panel-desc">Uses YOLOv8 to detect diseases and insect pests in sugarcane leaves.</p>
+
+                    <div class="upload-area" id="sc-uploadArea">
+                        <input type="file" id="sc-fileInput" accept="image/*" multiple hidden>
+                        <div class="upload-placeholder">
+                            <svg class="upload-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/>
+                            </svg>
+                            <p class="upload-text">Click or drag &amp; drop</p>
+                            <p class="upload-subtext">Up to 4 images · PNG, JPG, JPEG up to 16MB each</p>
+                        </div>
+                        <div id="sc-previewContainer" class="multi-preview-container" style="display:none"></div>
+                    </div>
+
+                    <div class="controls">
+                        <button id="sc-analyzeBtn" class="btn btn-primary" disabled>
+                            <span class="btn-text">Analyze Image</span>
+                            <span class="btn-loader" style="display:none"><span class="spinner"></span> Analyzing…</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="results-section" id="sc-results" style="display:none">
+                    <div id="sc-report" class="batch-report"></div>
+                </div>
+            </section>
+
+            <!-- ── RICE PANEL ─────────────────────────────────────────────── -->
+            <section class="panel" id="panel-rice">
+                <div class="upload-card">
+                    <h2>Rice Leaf Disease Severity</h2>
+                    <p class="panel-desc">Uses EfficientNet-B0 to classify rice leaf disease and estimate severity (0 / 25 / 75%).</p>
+
+                    <div class="upload-area" id="ri-uploadArea">
+                        <input type="file" id="ri-fileInput" accept="image/*" multiple hidden>
+                        <div class="upload-placeholder">
+                            <svg class="upload-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/>
+                            </svg>
+                            <p class="upload-text">Click or drag &amp; drop</p>
+                            <p class="upload-subtext">Up to 4 images · PNG, JPG, JPEG up to 16MB each</p>
+                        </div>
+                        <div id="ri-previewContainer" class="multi-preview-container" style="display:none"></div>
+                    </div>
+
+                    <div class="controls">
+                        <button id="ri-analyzeBtn" class="btn btn-rice" disabled>
+                            <span class="btn-text">Analyze Image</span>
+                            <span class="btn-loader" style="display:none"><span class="spinner"></span> Analyzing…</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="results-section" id="ri-results" style="display:none">
+                    <div id="ri-report" class="batch-report"></div>
+                </div>
+            </section>
+
+            <!-- ── WHEAT PANEL ────────────────────────────────────────────── -->
+            <section class="panel" id="panel-wheat">
+                <div class="upload-card">
+                    <h2>Wheat Leaf Disease Detection</h2>
+                    <p class="panel-desc">Uses ResNet-18 to classify wheat leaf diseases: Brown Rust, Loose Smut, Mildew, Yellow Rust, or Healthy.</p>
+
+                    <div class="upload-area" id="wh-uploadArea">
+                        <input type="file" id="wh-fileInput" accept="image/*" multiple hidden>
+                        <div class="upload-placeholder">
+                            <svg class="upload-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/>
+                            </svg>
+                            <p class="upload-text">Click or drag &amp; drop</p>
+                            <p class="upload-subtext">Up to 4 images · PNG, JPG, JPEG up to 16MB each</p>
+                        </div>
+                        <div id="wh-previewContainer" class="multi-preview-container" style="display:none"></div>
+                    </div>
+
+                    <div class="controls">
+                        <button id="wh-analyzeBtn" class="btn btn-wheat" disabled>
+                            <span class="btn-text">Analyze Image</span>
+                            <span class="btn-loader" style="display:none"><span class="spinner"></span> Analyzing…</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="results-section" id="wh-results" style="display:none">
+                    <div id="wh-report" class="batch-report"></div>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>Powered by YOLOv8 · EfficientNet-B0 · ResNet-18 &nbsp;|&nbsp; Built with Flask &amp; PyTorch</p>
+        </div>
+    </footer>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

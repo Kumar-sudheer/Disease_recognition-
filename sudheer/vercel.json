@@ -2,14 +2,14 @@
   "version": 2,
   "builds": [
     {
-      "src": "api/sudheer/app.py",
+      "src": "app.py",
       "use": "@vercel/python"
     }
   ],
   "routes": [
     {
       "src": "/(.*)",
-      "dest": "api/sudheer/app.py"
+      "dest": "app.py"
     }
   ]
 }

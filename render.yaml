@@ -1,0 +1,19 @@
+services:
+  - type: web
+    name: crop-disease-detection
+    env: python
+    region: oregon
+    plan: free
+    
+    # Build command
+    buildCommand: pip install -r sudheer/requirements.txt
+    
+    # Start command - using gunicorn for production
+    startCommand: cd sudheer && gunicorn --workers 1 --worker-class sync --bind 0.0.0.0:$PORT --timeout 120 app:app
+    
+    # Environment variables
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11
+      - key: PORT
+        value: 10000
